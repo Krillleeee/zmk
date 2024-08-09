@@ -938,6 +938,7 @@ static void paw3395_async_init(struct k_work *work)
 static void irq_handler(const struct device *gpiob, struct gpio_callback *cb,
 			uint32_t pins)
 {
+	printk("PAW3395 interrupt triggered\n");
 	int err;
 	struct pixart_data *data = CONTAINER_OF(cb, struct pixart_data,
 						 irq_gpio_cb);
@@ -1084,6 +1085,7 @@ static int paw3395_init(const struct device *dev)
 
 static int paw3395_sample_fetch(const struct device *dev, enum sensor_channel chan)
 {
+	printk("PAW3395 sample fetch called\n");
 	struct pixart_data *data = dev->data;
 	uint8_t buf[PAW3395_BURST_SIZE];
 
@@ -1118,7 +1120,7 @@ static int paw3395_sample_fetch(const struct device *dev, enum sensor_channel ch
 			data->y = -x;
 		}
 	}
-
+	printk("PAW3395 sample fetch completed. dx: %d, dy: %d\n", data->dx, data->dy);
 	return err;
 }
 
