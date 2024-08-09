@@ -912,6 +912,7 @@ static int paw3395_async_init_configure(const struct device *dev)
 // checked and keep
 static void paw3395_async_init(struct k_work *work)
 {
+	LOG_INF("PAW3395 inside async"
 	struct pixart_data *data = CONTAINER_OF(work, struct pixart_data,
 						 init_work);
 	const struct device *dev = data->dev;
@@ -1042,16 +1043,17 @@ static int paw3395_init(const struct device *dev)
 	struct pixart_data *data = dev->data;
 	const struct pixart_config *config = dev->config;
 	int err;
-
+	LOG_INF("PAW3395: Entering init function");
   // init device pointer
 	data->dev = dev;
-
+	LOG_INF("PAW3395: Entering init function");
   // init trigger handler work
 	k_work_init(&data->trigger_handler_work, trigger_handler);
 
   // check readiness of spi bus
 	if (!spi_is_ready(&config->bus)) {
 		LOG_ERR("SPI device not ready");
+		LOG_INF("SPI device not ready");
 		return -ENODEV;
 	}
 
@@ -1079,6 +1081,7 @@ static int paw3395_init(const struct device *dev)
   // 2. upload initial settings
   // 3. other configs like cpi, downshift time, sample time etc.
   // The sensor is ready to work (i.e., data->ready=true after the above steps are finished)
+  LOG_INF("entering async")
   k_work_init_delayable(&data->init_work, paw3395_async_init);
 
 	k_work_schedule(&data->init_work,
