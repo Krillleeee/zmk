@@ -1081,7 +1081,7 @@ static int paw3395_init(const struct device *dev)
   // 2. upload initial settings
   // 3. other configs like cpi, downshift time, sample time etc.
   // The sensor is ready to work (i.e., data->ready=true after the above steps are finished)
-  LOG_INF("entering async")
+  LOG_INF("entering async");
   k_work_init_delayable(&data->init_work, paw3395_async_init);
 
 	k_work_schedule(&data->init_work,
