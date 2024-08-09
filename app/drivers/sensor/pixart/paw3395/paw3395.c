@@ -305,7 +305,7 @@ static int motion_burst_read(const struct device *dev, uint8_t *buf,
 	int err;
 	/* struct pixart_data *data = dev->data; */
 	const struct pixart_config *config = dev->config;
-
+	LOG_INF("Motion Burst called ");
 	__ASSERT_NO_MSG(burst_size <= PAW3395_MAX_BURST_SIZE);
 
 	/* Write any value to motion burst register only if there have been
@@ -960,8 +960,8 @@ static void irq_handler(const struct device *gpiob, struct gpio_callback *cb,
 
 static void trigger_handler(struct k_work *work)
 {
-  LOG_DBG("trigger_handler");
-
+  	LOG_DBG("trigger_handler");
+	LOG_INF("Trigger handler called ");
 	sensor_trigger_handler_t handler;
 	int err = 0;
 	struct pixart_data *data = CONTAINER_OF(work, struct pixart_data,
@@ -978,6 +978,7 @@ static void trigger_handler(struct k_work *work)
 
 	if (!handler) {
     LOG_DBG("no trigger handler set by application code");
+	LOG_INF("No Trigger handler ");
 		return;
 	}
 
@@ -1068,6 +1069,7 @@ static int paw3395_init(const struct device *dev)
   // init irq routine
 	err = paw3395_init_irq(dev);
 	if (err) {
+		LOG_INF("Failed to initialize IRQ:");
 		return err;
 	}
 
@@ -1082,6 +1084,7 @@ static int paw3395_init(const struct device *dev)
 			K_MSEC(async_init_delay[data->async_init_step]));
 
 	return err;
+	LOG_INF("PAW3395 initialization completed successfully");
 }
 
 static int paw3395_sample_fetch(const struct device *dev, enum sensor_channel chan)
