@@ -1120,7 +1120,7 @@ static int paw3395_sample_fetch(const struct device *dev, enum sensor_channel ch
 			data->y = -x;
 		}
 	}
-	printk("PAW3395 sample fetch completed. dx: %d, dy: %d\n", data->dx, data->dy);
+	printk("PAW3395 sample fetch completed. dx: %d, dy: %d\n", data->x, data->y);
 	return err;
 }
 
