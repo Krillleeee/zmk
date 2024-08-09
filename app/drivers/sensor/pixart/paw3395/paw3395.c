@@ -926,6 +926,7 @@ static void paw3395_async_init(struct k_work *work)
 
 		if (data->async_init_step == ASYNC_INIT_STEP_COUNT) {
 			data->ready = true; // sensor is ready to work
+			LOG_INF("Testing testing");
 			LOG_INF("PAW3395 initialized");
 		} else {
 			k_work_schedule(&data->init_work,
