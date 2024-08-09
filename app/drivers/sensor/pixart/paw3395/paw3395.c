@@ -11,7 +11,7 @@
 #include "paw3395.h"
 
 #include <logging/log.h>
-LOG_MODULE_REGISTER(paw3395, CONFIG_PAW3395_LOG_LEVEL);
+LOG_MODULE_REGISTER(paw3395, LOG_LEVEL_ERR);
 
 /* todo: add reset pin into the init sequence */
 
