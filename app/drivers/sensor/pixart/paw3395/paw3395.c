@@ -305,7 +305,7 @@ static int motion_burst_read(const struct device *dev, uint8_t *buf,
 	int err;
 	/* struct pixart_data *data = dev->data; */
 	const struct pixart_config *config = dev->config;
-	LOG_INF("Motion Burst called ");
+	LOG_INF("Motion Burst scalled ");
 	__ASSERT_NO_MSG(burst_size <= PAW3395_MAX_BURST_SIZE);
 
 	/* Write any value to motion burst register only if there have been
