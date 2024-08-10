@@ -1117,8 +1117,9 @@ static int paw3395_sample_fetch(const struct device *dev, enum sensor_channel ch
 			data->x = -y;
 			data->y = -x;
 		}
+		LOG_INF("PAW3395 movement detected: x=%d, y=%d", data->x, data->y);
 	}
-
+	LOG_INF("PAW3395 movement detected: x=%d, y=%d", data->x, data->y);
 	return err;
 }
 
