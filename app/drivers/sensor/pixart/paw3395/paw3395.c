@@ -938,6 +938,7 @@ static void paw3395_async_init(struct k_work *work)
 static void irq_handler(const struct device *gpiob, struct gpio_callback *cb,
 			uint32_t pins)
 {
+	LOG_INF("interrtpu...");
 	int err;
 	struct pixart_data *data = CONTAINER_OF(cb, struct pixart_data,
 						 irq_gpio_cb);
@@ -1034,26 +1035,29 @@ static int paw3395_init_irq(const struct device *dev)
 static int paw3395_init(const struct device *dev)
 {
   LOG_INF("Start initializing...");
+ LOG_INF("Start 2");
 
 	struct pixart_data *data = dev->data;
 	const struct pixart_config *config = dev->config;
 	int err;
-
+LOG_INF("Start 3");
   // init device pointer
 	data->dev = dev;
 
   // init trigger handler work
 	k_work_init(&data->trigger_handler_work, trigger_handler);
-
+LOG_INF("Start 4");
   // check readiness of spi bus
 	if (!spi_is_ready(&config->bus)) {
 		LOG_ERR("SPI device not ready");
+		LOG_INF("spi not ready");
 		return -ENODEV;
 	}
-
+LOG_INF("Start 5");
   // check readiness of cs gpio pin and init it to inactive
 	if (!device_is_ready(config->cs_gpio.port)) {
 		LOG_ERR("SPI CS device not ready");
+		LOG_INF("cs not ready");
 		return -ENODEV;
 	}
 
@@ -1062,7 +1066,7 @@ static int paw3395_init(const struct device *dev)
 		LOG_ERR("Cannot configure SPI CS GPIO");
 		return err;
 	}
-
+LOG_INF("Start 5");
   // init irq routine
 	err = paw3395_init_irq(dev);
 	if (err) {
@@ -1107,15 +1111,19 @@ static int paw3395_sample_fetch(const struct device *dev, enum sensor_channel ch
 		if (IS_ENABLED(CONFIG_PAW3395_ORIENTATION_0)) {
 			data->x = x;
 			data->y = y;
+			LOG_INF("PAW3395 movement detected: x=%d, y=%d", data->x, data->y);
 		} else if (IS_ENABLED(CONFIG_PAW3395_ORIENTATION_90)) {
 			data->x = y;
 			data->y = x;
+			LOG_INF("PAW3395 movement detected: x=%d, y=%d", data->x, data->y);
 		} else if (IS_ENABLED(CONFIG_PAW3395_ORIENTATION_180)) {
 			data->x = x;
 			data->y = -y;
+			LOG_INF("PAW3395 movement detected: x=%d, y=%d", data->x, data->y);
 		} else if (IS_ENABLED(CONFIG_PAW3395_ORIENTATION_270)) {
 			data->x = -y;
 			data->y = -x;
+			LOG_INF("PAW3395 movement detected: x=%d, y=%d", data->x, data->y);
 		}
 		LOG_INF("PAW3395 movement detected: x=%d, y=%d", data->x, data->y);
 	}
