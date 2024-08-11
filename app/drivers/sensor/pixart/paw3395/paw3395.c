@@ -1058,6 +1058,7 @@ static int paw3395_init(const struct device *dev)
 		return -ENODEV;
 	}
   LOG_INF("Start cs  check...");
+  LOG_DBG("starts cs check...");
   // check readiness of cs gpio pin and init it to inactive
 	if (!device_is_ready(config->cs_gpio.port)) {
 		LOG_ERR("SPI CS device not ready");
