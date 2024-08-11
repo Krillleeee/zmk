@@ -1049,17 +1049,19 @@ static int paw3395_init(const struct device *dev)
 	LOG_INF("PAW3395: Entering init function");
   // init trigger handler work
 	k_work_init(&data->trigger_handler_work, trigger_handler);
-
+  LOG_INF("Start spi check...");
   // check readiness of spi bus
 	if (!spi_is_ready(&config->bus)) {
 		LOG_ERR("SPI device not ready");
 		LOG_INF("SPI device not ready");
+		LOG_INF("spu not ready");
 		return -ENODEV;
 	}
-
+  LOG_INF("Start cs  check...");
   // check readiness of cs gpio pin and init it to inactive
 	if (!device_is_ready(config->cs_gpio.port)) {
 		LOG_ERR("SPI CS device not ready");
+		LOG_INF("cs not ready");
 		return -ENODEV;
 	}
 
