@@ -1039,16 +1039,20 @@ static int paw3395_init_irq(const struct device *dev)
 static int paw3395_init(const struct device *dev)
 {
   LOG_INF("Start initializing...");
+  LOG_INF("Start 2...");
 
 	struct pixart_data *data = dev->data;
 	const struct pixart_config *config = dev->config;
 	int err;
 	LOG_INF("PAW3395: Entering init function");
   // init device pointer
+LOG_INF("Start 3...");
 	data->dev = dev;
 	LOG_INF("PAW3395: Entering init function");
   // init trigger handler work
+LOG_INF("Start 4...");
 	k_work_init(&data->trigger_handler_work, trigger_handler);
+LOG_INF("Start 5");
   LOG_INF("Start spi check...");
   // check readiness of spi bus
 	if (!spi_is_ready(&config->bus)) {
